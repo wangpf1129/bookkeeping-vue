@@ -12,9 +12,9 @@
 
 <script lang="ts">
   import TopNav from '@/components/common/TopNav/TopNav.vue';
-  import CategorySection from '@/views/Home/childComps/CategorySection.vue';
-  import TagsSection from '@/views/Home/childComps/TagsSection.vue';
-  import KeyboardSection from '@/views/Home/childComps/KeyboardSection.vue';
+  import CategorySection from '@/views/Home/childComps/Money/CategorySection.vue';
+  import TagsSection from '@/views/Home/childComps/Money/TagsSection.vue';
+  import KeyboardSection from '@/views/Home/childComps/Money/KeyboardSection.vue';
 
   export default {
     name: 'money',

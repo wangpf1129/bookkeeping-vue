@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts">
-  import NotesSection from '@/views/Home/childComps/NotesSection.vue';
-  import NumberPadSection from '@/views/Home/childComps/NumberPadSection.vue';
+  import NotesSection from '@/views/Home/childComps/Money/NotesSection.vue';
+  import NumberPadSection from '@/views/Home/childComps/Money/NumberPadSection.vue';
 
   export default {
     name: 'KeyboardSection',

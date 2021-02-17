@@ -4,7 +4,7 @@ import Home from '@/views/Home/Home.vue';
 import Detail from '@/views/Detail/Detail.vue';
 import Statistics from '@/views/Statistics/Statistics.vue';
 import NoMatch from '@/views/NoMatch/NoMatch.vue';
-import Money from '@/views/Home/childComps/Money.vue';
+import Money from '@/views/Home/childComps/Money/Money.vue';
 
 Vue.use(VueRouter);
 
