@@ -1,13 +1,12 @@
 <template>
-  <div>
+  <Layout>
     Detail.vue
-    <Nav/>
-  </div>
+  </Layout>
 </template>
 
 <script lang="ts">
   export default {
-    name: 'Detail'
+    name: 'Detail',
   };
 </script>
 

@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <Layout>
     Home.vue
-    <Nav/>
-  </div>
+  </Layout>
 </template>
 
 <script lang="ts">
+
   export default {
-    name: 'Home'
+    name: 'Home',
   };
 </script>
 
