@@ -1,28 +1,29 @@
 <template>
-  <div class="wrapper">
+  <div class="money-wrapper">
     <TopNav name="back">
-      <category-section slot="title"/>
+      <CategorySection slot="title"/>
     </TopNav>
-    money.vue
-    money.vue
-    money.vue
-    money.vue
-
+    <section class="main">
+      <TagsSection/>
+    </section>
+    <KeyboardSection/>
   </div>
 </template>
 
 <script lang="ts">
   import TopNav from '@/components/common/TopNav/TopNav.vue';
   import CategorySection from '@/views/Home/childComps/CategorySection.vue';
+  import TagsSection from '@/views/Home/childComps/TagsSection.vue';
+  import KeyboardSection from '@/views/Home/childComps/KeyboardSection.vue';
 
   export default {
     name: 'money',
-    components: {CategorySection, TopNav}
+    components: {KeyboardSection, TagsSection, CategorySection, TopNav}
   };
 </script>
 
 <style lang="scss" scoped>
-  .wrapper {
+  .money-wrapper {
     max-width: 520px;
     margin: 0 auto;
     background-color: #fff;
@@ -37,5 +38,15 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
+
+    .main {
+      background-color: #fafbf6;
+      flex: 1;
+      overflow: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
   }
 </style>

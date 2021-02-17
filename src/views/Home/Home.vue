@@ -2,11 +2,11 @@
   <Layout name="TODAY">
     <div class="show-money">
       <span class="title">今日支出</span>
-      <span class="pay">￥18</span>
-      <span class="income">本月收入 ￥1200</span>
+      <span class="pay">￥ 18</span>
+      <span class="income">本月收入 ￥ 1200</span>
     </div>
     <div class="money-link">
-      <router-link to="/home/money">记一笔~</router-link>
+      <router-link to="/home/money">记一笔</router-link>
     </div>
     <router-view/>
   </Layout>
@@ -21,7 +21,6 @@
 </script>
 
 <style lang="scss" scoped>
-
   .show-money {
     margin-top: 68px;
     display: flex;
@@ -75,7 +74,6 @@
       font-size: 16px;
     }
   }
-
   .money-link {
     margin: 28px auto 0;
     background-color: #A1DECF;
