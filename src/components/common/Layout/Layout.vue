@@ -1,31 +1,41 @@
 <template>
   <div class="wrapper">
-    <div class="main">
-      <slot/>
-    </div>
+    <TopNav>
+      <span slot="title">{{name}}</span>
+    </TopNav>
+    <section class="main">
+      <slot />
+    </section>
     <Nav/>
   </div>
 </template>
 
 <script lang="ts">
   import Nav from '@/components/common/Nav/Nav.vue';
+  import TopNav from '@/components/common/TopNav/TopNav.vue';
 
   export default {
     name: 'Layout',
-    components: {Nav}
+    components: {TopNav, Nav},
+    props: {
+      name: String,
+    }
   };
 </script>
 
 <style lang="scss" scoped>
   .wrapper {
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    height: 100vh;
 
     .main {
       flex: 1;
       overflow-y: auto;
-      overflow-x: hidden;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 </style>
