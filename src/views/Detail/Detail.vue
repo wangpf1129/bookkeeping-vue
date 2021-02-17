@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout name="明细">
     Detail.vue
   </Layout>
 </template>
