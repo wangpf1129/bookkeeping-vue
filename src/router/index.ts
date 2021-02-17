@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import VueRouter, {RouteConfig} from 'vue-router';
-import Home from '@/views/Home.vue';
-import Detail from '@/views/Detail.vue';
-import Statistics from '@/views/Statistics.vue';
+import Home from '@/views/Home/Home.vue';
+import Detail from '@/views/Detail/Detail.vue';
+import Statistics from '@/views/Statistics/Statistics.vue';
+import NoMatch from '@/views/NoMatch/NoMatch.vue';
 
 Vue.use(VueRouter);
 
@@ -25,6 +26,11 @@ const routes: Array<RouteConfig> = [
     path: '/statistics',
     name: 'Statistics',
     component: Statistics
+  },
+  {
+    path:'*',
+    name:'NoMatch',
+    component:NoMatch
   }
 ];
 
