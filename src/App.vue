@@ -1,10 +1,6 @@
 <template>
   <div id="app">
     <router-view/>
-    <hr>
-    <router-link to="/home">TODAY</router-link>
-    <router-link to="/detail">明细</router-link>
-    <router-link to="/statistics">统计</router-link>
   </div>
 </template>
 
