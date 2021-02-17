@@ -5,6 +5,9 @@
 </template>
 
 <script lang="ts">
+  import x from'@/assets/icons/home.svg';
+
+  console.log(x);
 
   export default {
     name: 'Home',
