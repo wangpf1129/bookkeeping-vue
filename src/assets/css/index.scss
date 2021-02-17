@@ -1,0 +1,19 @@
+@import "helper";
+*{margin:0;padding: 0;}
+*{box-sizing:border-box;}
+*:before {box-sizing:border-box;}
+*:after{box-sizing:border-box;}
+ul,ol{list-style: none;}
+a{text-decoration: none;color: inherit;}
+body{
+  font-family: $font-hei;
+  font-size: 16px;
+  line-height: 1.2;
+}
+:focus{
+  outline: none;
+}
+.icon{
+  width: 1em;
+  height: 1em;
+}
