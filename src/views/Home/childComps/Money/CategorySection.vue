@@ -7,7 +7,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
 
   @Component
   export default class CategorySection extends Vue {
@@ -19,7 +19,10 @@
       }
       this.type = type;
     }
-
+    @Watch('type')
+    onTypeChange(newValue: string){
+      this.$emit('update:value',newValue)
+    }
   }
 </script>
 

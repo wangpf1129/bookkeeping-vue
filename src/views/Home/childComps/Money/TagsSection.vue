@@ -11,10 +11,11 @@
       <li>
         <Icon iconName="set"/>
         <span>
-          <router-link to='xxx'>设置</router-link>
+          <router-link to='home/money/edit'>设置</router-link>
          </span>
       </li>
     </ol>
+    <router-view/>
   </div>
 </template>
 
@@ -25,7 +26,6 @@
   @Component
   export default class TagsSection extends Vue {
     @Prop() tags: { id: number; name: string; iconName: string; mold: string }[] | undefined;
-
     selectedTagIds: number[] = [];
 
     toggleTag(tag: number) {
@@ -34,6 +34,7 @@
         this.selectedTagIds = this.selectedTagIds.filter(item => item !== tag);
       } else {
         this.selectedTagIds = [tag];
+        this.$emit('update:value',this.selectedTagIds)
       }
     }
   }

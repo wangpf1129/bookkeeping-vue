@@ -24,7 +24,7 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import generateOutput from '@/common/generateOutput';
 
   @Component
@@ -35,6 +35,11 @@
       const text = (event.target as HTMLButtonElement).textContent;
       if (text === null) return;
       this.output = generateOutput(text, this.output);
+    }
+
+    @Watch('output')
+    onOutputChange(newValue: string){
+      this.$emit('update:value',newValue)
     }
   }
 </script>

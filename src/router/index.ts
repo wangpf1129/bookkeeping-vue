@@ -5,6 +5,7 @@ import Detail from '@/views/Detail/Detail.vue';
 import Statistics from '@/views/Statistics/Statistics.vue';
 import NoMatch from '@/views/NoMatch/NoMatch.vue';
 import Money from '@/views/Home/childComps/Money/Money.vue';
+import Edit from '@/views/Home/childComps/Edit/Edit.vue';
 
 Vue.use(VueRouter);
 
@@ -19,10 +20,14 @@ const routes: Array<RouteConfig> = [
     component: Home,
     children: [
       {
-        // 当 /user/:id/profile 匹配成功，
-        // UserProfile 会被渲染在 User 的 <router-view> 中
         path: 'money',
-        component: Money
+        component: Money,
+        children:[
+          {
+            path:'edit',
+            component:Edit
+          }
+        ]
       },
     ]
   },

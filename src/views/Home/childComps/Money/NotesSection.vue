@@ -16,7 +16,7 @@
 <script lang="ts">
 
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import MaskDiv from '@/views/Home/childComps/Money/MaskDiv.vue';
 
   interface StyleInput {
@@ -40,6 +40,11 @@
     sureText(notes: string) {
       this.styleInput = {display: 'none'};
       this.notes = notes;
+    }
+
+    @Watch('notes')
+    onNotesChange(newValue: string){
+      this.$emit('update:value',newValue)
     }
   }
 
