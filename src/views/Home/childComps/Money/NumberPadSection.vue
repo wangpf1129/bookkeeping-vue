@@ -34,7 +34,6 @@
     getButton(event: MouseEvent) {
       const text = (event.target as HTMLButtonElement).textContent;
       if (text === null) return;
-
       this.output = generateOutput(text, this.output);
     }
   }
