@@ -4,21 +4,34 @@
       <div class='title'>
         <Icon iconName='占位'/>
         <span>记账备注</span>
-        <span><Icon iconName='close'/></span>
+        <span @click="closeMask"><Icon iconName='close'/></span>
       </div>
       <label class='main'>
         <span>输入备注：</span>
-        <textarea/>
-        <button>确定</button>
+        <textarea v-model="notes"/>
+        <button @click="sureText(notes)">确定</button>
       </label>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'MaskDiv'
-  };
+  import Vue from 'vue';
+  import {Component, } from 'vue-property-decorator';
+
+  @Component
+  export default class MaskDiv extends Vue {
+    notes = ''
+
+    closeMask() {
+      this.$emit('closeMask', {display:'none'})
+    }
+    sureText(notes: string){
+      if(notes !== ''){
+        this.$emit('sureText', notes.trim())
+      }
+    }
+  }
 </script>
 
 <style lang="scss" scoped>

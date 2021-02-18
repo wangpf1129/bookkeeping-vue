@@ -1,24 +1,48 @@
 <template>
   <div class="notes-wrapper">
-    <label class="goNote">
+    <label class="goNote" @click="toNote">
       <Icon iconName="note"/>
-      <span>写点备注吧...</span>
+      <span>{{notes}}</span>
     </label>
     <label class="create_date">
       <Icon iconName="date"/>
       <input type="datetime-local"
              class="dateIpt"/>
     </label>
-    <MaskDiv/>
+    <MaskDiv :style="styleInput" @closeMask="closeMask" @sureText="sureText"/>
   </div>
 </template>
 
 <script lang="ts">
+
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
   import MaskDiv from '@/views/Home/childComps/Money/MaskDiv.vue';
-  export default {
-    name: 'NotesSection',
+
+  interface StyleInput {
+    display: string;
+  }
+  @Component({
     components: {MaskDiv}
-  };
+  })
+  export default class NotesSection extends Vue {
+    styleInput: StyleInput = {display: 'none'};
+    notes = '写点备注吧...';
+
+    toNote() {
+      this.styleInput = {display: 'block'};
+    }
+
+    closeMask(obj: StyleInput) {
+      this.styleInput = obj;
+    }
+
+    sureText(notes: string) {
+      this.styleInput = {display: 'none'};
+      this.notes = notes;
+    }
+  }
+
 </script>
 
 <style lang="scss" scoped>
