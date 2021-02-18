@@ -7,22 +7,19 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component
   export default class CategorySection extends Vue {
-    type = '-';  // '-' 表示支出， '+' 表示收入
+    @Prop() readonly type!: string
 
     selectType(type: string) {
       if (type !== '-' && type !== '+') {
         throw new Error('Type is unknown');
       }
-      this.type = type;
+      this.$emit('update:type',type)
     }
-    @Watch('type')
-    onTypeChange(newValue: string){
-      this.$emit('update:value',newValue)
-    }
+
   }
 </script>
 

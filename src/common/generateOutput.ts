@@ -10,9 +10,13 @@ const computeResult = (output: string) => {
       sum += num;
     } else if (symOne === '-') {
       sum -= num;
+      if(sum < 0){
+        alert('不能为负数')
+        sum = 0
+      }
     }
   }
-  return sum.toFixed(2);
+  return sum.toFixed(0);
 };
 
 const generateOutput = (text: string, output: string) => {
@@ -32,10 +36,6 @@ const generateOutput = (text: string, output: string) => {
       } else {
         return output + text;
       }
-    case '.':
-      if (output[output.length - 1] === '.' ) return output;
-      if (output.indexOf('.') >= 1) return output;
-      return output + '.';
     case'+':
       if (output[output.length - 1] === '+' || output[output.length - 1] === '-') return output;
       return output + '+';

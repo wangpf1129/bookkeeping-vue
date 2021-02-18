@@ -26,15 +26,17 @@
   @Component
   export default class TagsSection extends Vue {
     @Prop() tags: { id: number; name: string; iconName: string; mold: string }[] | undefined;
+    @Prop() readonly tagIds!: number[];
+
     selectedTagIds: number[] = [];
 
-    toggleTag(tag: number) {
-      const index = this.selectedTagIds.indexOf(tag);
+    toggleTag(tagId: number) {
+      const index = this.selectedTagIds.indexOf(tagId);
       if (index >= 0) {
-        this.selectedTagIds = this.selectedTagIds.filter(item => item !== tag);
+        this.selectedTagIds = this.selectedTagIds.filter(item => item !== tagId);
       } else {
-        this.selectedTagIds = [tag];
-        this.$emit('update:value',this.selectedTagIds)
+        this.selectedTagIds = [tagId];
+        this.$emit('update:tagIds', this.selectedTagIds);
       }
     }
   }

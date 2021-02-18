@@ -2,7 +2,7 @@
   <div class="notes-wrapper">
     <label class="goNote" @click="toNote">
       <Icon iconName="note"/>
-      <span>{{notes}}</span>
+      <span>{{note}}</span>
     </label>
     <label class="create_date">
       <Icon iconName="date"/>
@@ -16,18 +16,20 @@
 <script lang="ts">
 
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import MaskDiv from '@/views/Home/childComps/Money/MaskDiv.vue';
 
   interface StyleInput {
     display: string;
   }
+
   @Component({
     components: {MaskDiv}
   })
   export default class NotesSection extends Vue {
+    @Prop(String) readonly note!: string;
+
     styleInput: StyleInput = {display: 'none'};
-    notes = '写点备注吧...';
 
     toNote() {
       this.styleInput = {display: 'block'};
@@ -37,14 +39,9 @@
       this.styleInput = obj;
     }
 
-    sureText(notes: string) {
+    sureText(note: string) {
       this.styleInput = {display: 'none'};
-      this.notes = notes;
-    }
-
-    @Watch('notes')
-    onNotesChange(newValue: string){
-      this.$emit('update:value',newValue)
+      this.$emit('update:value', note);
     }
   }
 

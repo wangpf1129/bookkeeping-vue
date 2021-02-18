@@ -1,12 +1,13 @@
 <template>
   <div class="money-wrapper">
     <TopNav name="back">
-      <CategorySection slot="title" @update:value="onUpdateType"/>
+      <CategorySection slot="title"  :type.sync="selected.category" />
     </TopNav>
     <section class="main">
-      <TagsSection :tags.sync="tags" @update:value="onUpdateTag"/>
+      {{selected}}
+      <TagsSection :tags.sync="tags"  :tagIds.sync="selected.tagIds" />
     </section>
-    <KeyboardSection @update:amount="onUpdateAmount" @update:notes="onUpdateNotes"/>
+    <KeyboardSection  :amount.sync="selected.amount" :note.sync="selected.note"/>
   </div>
 </template>
 
@@ -57,30 +58,13 @@
       {id: 28, name: '礼金', iconName: '004', mold: '+'},  // 25
       {id: 29, name: '其他', iconName: '005', mold: '+'},  // 25
     ];
-    defaultFormData = {
+    selected = {
       tagIds: [] as number[], // 标签
-      note: '',  // 备注
+      note: '写点备注...',  // 备注
       createdAt: new Date().toISOString(), //日期
       category: '-' as Category, // 收入/支出
       amount: 0  // 总和
     };
-
-    onUpdateType(type: Category) {
-      this.defaultFormData.category = type
-    }
-
-    onUpdateTag(tagId: number) {
-      this.defaultFormData.tagIds = [tagId]
-    }
-
-    onUpdateAmount(amount: number) {
-      this.defaultFormData.amount = amount
-    }
-
-    onUpdateNotes(note: string) {
-      this.defaultFormData.note = note
-    }
-
 
   }
 </script>

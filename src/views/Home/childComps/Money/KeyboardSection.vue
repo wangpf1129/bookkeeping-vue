@@ -1,7 +1,7 @@
 <template>
   <div class="keyboard-wrapper">
-    <NotesSection @update:value="onUpdateNotes"/>
-    <NumberPadSection @update:value="onUpdateAmount"/>
+    <NotesSection @update:value="onUpdateNotes" :note.sync="note"/>
+    <NumberPadSection @update:value="onUpdateAmount" :amount.sync="amount"/>
   </div>
 </template>
 
@@ -10,18 +10,21 @@
   import NumberPadSection from '@/views/Home/childComps/Money/NumberPadSection.vue';
 
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
 
   @Component({
     components: {NumberPadSection, NotesSection}
   })
   export default class KeyboardSection extends Vue {
+    @Prop(String) readonly note!: string;
+    @Prop(Number) readonly amount!: number;
 
-    onUpdateNotes(notes: string){
-      this.$emit('update:notes',notes)
+    onUpdateNotes(note: string) {
+      this.$emit('update:note', note);
     }
-    onUpdateAmount(amount: number){
-      this.$emit('update:amount',amount)
+
+    onUpdateAmount(amount: number) {
+      this.$emit('update:amount', amount);
     }
   }
 </script>

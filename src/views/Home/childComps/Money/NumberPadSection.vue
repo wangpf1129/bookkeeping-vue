@@ -14,32 +14,32 @@
       <button>8</button>
       <button>9</button>
       <button>-</button>
-      <button>.</button>
       <button>0</button>
       <button>删除</button>
-      <button class="complete">{{output.indexOf('+') >= 0 || output.indexOf('-') >= 0 ? '=':'完成'}}</button>
+      <button class="complete">{{result}}</button>
     </section>
   </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
+  import {Component, Prop} from 'vue-property-decorator';
   import generateOutput from '@/common/generateOutput';
 
   @Component
   export default class NumberPadSection extends Vue {
-    output = '0';
+    @Prop(Number) amount!: number;
+    output = this.amount.toString();
+
+    get result() {
+      return this.output.indexOf('+') >= 0 || this.output.indexOf('-') >= 0 ? '=' : '完成';
+    }
 
     getButton(event: MouseEvent) {
       const text = (event.target as HTMLButtonElement).textContent;
       if (text === null) return;
       this.output = generateOutput(text, this.output);
-    }
-
-    @Watch('output')
-    onOutputChange(newValue: string){
-      this.$emit('update:value',newValue)
+      this.$emit('update:value', parseFloat(this.output));
     }
   }
 </script>
@@ -80,6 +80,7 @@
         }
 
         &.complete {
+          width: calc(40% + 12px);
           background-color: #eec511;
         }
       }
