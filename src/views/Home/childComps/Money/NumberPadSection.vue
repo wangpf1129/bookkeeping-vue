@@ -1,7 +1,7 @@
 <template>
   <div class="numberPad-wrapper">
-    <div class="money">0</div>
-    <section>
+    <div class="money">{{output}}</div>
+    <section @click="getButton">
       <button>1</button>
       <button>2</button>
       <button>3</button>
@@ -17,15 +17,27 @@
       <button>.</button>
       <button>0</button>
       <button>删除</button>
-      <button class="complete">完成</button>
+      <button class="complete">{{output.indexOf('+') >= 0 || output.indexOf('-') >= 0 ? '=':'完成'}}</button>
     </section>
   </div>
 </template>
 
 <script lang="ts">
-  export default {
-    name: 'NumberPadSection'
-  };
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
+  import generateOutput from '@/common/generateOutput';
+
+  @Component
+  export default class NumberPadSection extends Vue {
+    output = '0';
+
+    getButton(event: MouseEvent) {
+      const text = (event.target as HTMLButtonElement).textContent;
+      if (text === null) return;
+
+      this.output = generateOutput(text, this.output);
+    }
+  }
 </script>
 
 <style lang="scss" scoped>
