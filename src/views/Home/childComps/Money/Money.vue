@@ -4,7 +4,7 @@
       <CategorySection slot="title" :type.sync="selected.category"/>
     </TopNav>
     <section class="main">
-      <TagsSection :tags.sync="tags" :tagIds.sync="selected.tagIds"/>
+      <TagsSection :tags.sync="tags" :tagIds.sync="selected.tagIds" :type.sync="selected.category"/>
     </section>
     <KeyboardSection :amount.sync="selected.amount" :note.sync="selected.note" @onSubmit="saveRecord"/>
   </div>

@@ -1,7 +1,7 @@
 <template>
   <div class="tags-wrapper">
     <ol>
-      <li v-for="tag in tags" :key="tag.id"
+      <li v-for="tag in moldTags" :key="tag.id"
           @click="toggleTag(tag.id)"
           :class="{selected: selectedTagIds.indexOf(tag.id) >= 0}"
       >
@@ -11,7 +11,7 @@
       <li>
         <Icon iconName="set"/>
         <span>
-          <router-link to='/home/money/edit'>
+          <router-link :to="`${$route.path}/edit`">
             <span>设置</span>
           </router-link>
          </span>
@@ -29,6 +29,14 @@
   export default class TagsSection extends Vue {
     @Prop(Array) tags: { id: number; name: string; iconName: string; mold: string }[] | undefined;
     @Prop(Array) readonly tagIds!: number[];
+    @Prop(String) readonly type!: string
+
+    get moldTags() {
+      if(this.tags !== undefined){
+        return this.tags.filter(tag => tag.mold === this.type);
+      }
+      return null
+    }
 
     selectedTagIds: number[] = [];
 

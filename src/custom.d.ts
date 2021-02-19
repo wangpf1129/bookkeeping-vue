@@ -5,3 +5,10 @@ type RecordItem = {
   category: '-' | '+';
   amount: number;
 }
+
+type Tag = {
+  id: number;
+  name: string;
+  iconName: string;
+  mold: string;
+}

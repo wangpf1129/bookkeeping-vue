@@ -13,6 +13,7 @@
   export default class CategorySection extends Vue {
     @Prop(String) readonly type!: string;
     @Prop(String) readonly typeStyle!: string;
+
     selectType(type: string) {
       if (type !== '-' && type !== '+') {
         throw new Error('Type is unknown');

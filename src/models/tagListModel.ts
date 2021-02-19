@@ -1,16 +1,12 @@
 const localStorageName = 'tagList';
 
-type Tag = {
-  id: number;
-  name: string;
-  iconName: string;
-  mold: string;
-}
+
 type TagListModel = {
   tags: Tag[];
   fetch: () => Tag[];
   save: () => void;
 }
+
 const tagListModel: TagListModel = {
   tags: [
     {id: 1, name: '餐饮', iconName: '1', mold: '-'},  // 1

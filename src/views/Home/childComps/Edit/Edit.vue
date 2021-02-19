@@ -3,19 +3,24 @@
     <TopNav name="back">
       <span slot="title">分类管理</span>
     </TopNav>
-    <TypeSection/>
+    <TypeSection @getCategory="getCategory"/>
     <section class="tags-list">
       <ul>
-        <li v-for="tag in tags" :key="tag.id">
+        <li v-for="tag in moldTags" :key="tag.id">
           <div class="tags">
             <Icon :iconName="tag.iconName"/>
             <span>{{tag.name}}</span>
           </div>
-          <router-link :to="$route.path+'/edit_tag'">
+          <router-link :to="`${$route.path}/${tag.id}`">
             <Icon iconName="more"/>
           </router-link>
         </li>
       </ul>
+    </section>
+    <section class="add_tag">
+      <router-link :to="`${$route.path}/9999`">
+        添加类别
+      </router-link>
     </section>
     <router-view/>
   </div>
@@ -28,16 +33,20 @@
   import TypeSection from '@/components/common/TypeSection/TypeSection.vue';
   import {tagListModel} from '@/models/tagListModel';
 
-  tagListModel.save()
-  tagListModel.fetch()
+  tagListModel.save();
+  tagListModel.fetch();
+  type MoldTags = typeof tagListModel.tags
   @Component({
     components: {TypeSection, TopNav}
   })
 
   export default class Edit extends Vue {
-      tags = tagListModel.tags
+    tags = tagListModel.tags;
+    moldTags: MoldTags = this.tags.filter(tag => tag.mold === '-');
 
-
+    getCategory(category: string) {
+      this.moldTags = this.tags.filter(tag => tag.mold === category);
+    }
   }
 </script>
 
@@ -95,6 +104,12 @@
           height: 24px;
         }
       }
+    }
+    .add_tag{
+      text-align: center;
+      background-color:#9ccac0;
+      font-size: 22px;
+      padding: 14px 0;
     }
   }
 </style>

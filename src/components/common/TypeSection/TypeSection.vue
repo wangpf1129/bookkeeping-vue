@@ -6,13 +6,19 @@
 
 <script lang="ts">
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
   import CategorySection from '@/views/Home/childComps/Money/CategorySection.vue';
   @Component({
     components: {CategorySection}
   })
   export default class TypeSection extends Vue {
     category = '-'
+
+    @Watch('category')
+    onCategoryChange(newCategory: string){
+      this.$emit('getCategory',newCategory)
+    }
+
   }
 </script>
 

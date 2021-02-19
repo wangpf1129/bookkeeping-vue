@@ -6,7 +6,7 @@
       <span class="income">本月收入 ￥ 1200</span>
     </div>
     <div class="money-link">
-      <router-link :to="$route.path+'/money'">记一笔</router-link>
+      <router-link :to="`${$route.path}/money`">记一笔</router-link>
     </div>
     <router-view/>
   </Layout>
