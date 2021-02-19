@@ -6,6 +6,7 @@ import Statistics from '@/views/Statistics/Statistics.vue';
 import NoMatch from '@/views/NoMatch/NoMatch.vue';
 import Money from '@/views/Home/childComps/Money/Money.vue';
 import Edit from '@/views/Home/childComps/Edit/Edit.vue';
+import EditTag from '@/views/Home/childComps/Edit/EditTag.vue';
 
 Vue.use(VueRouter);
 
@@ -22,10 +23,16 @@ const routes: Array<RouteConfig> = [
       {
         path: 'money',
         component: Money,
-        children:[
+        children: [
           {
-            path:'edit',
-            component:Edit,
+            path: 'edit',
+            component: Edit,
+            children:[
+              {
+                path:':id',
+                component:EditTag
+              }
+            ]
           }
         ]
       },
@@ -42,15 +49,15 @@ const routes: Array<RouteConfig> = [
     component: Statistics
   },
   {
-    path:'*',
-    name:'NoMatch',
-    component:NoMatch
+    path: '*',
+    name: 'NoMatch',
+    component: NoMatch
   }
 ];
 
 const router = new VueRouter({
   routes,
-  mode:"hash"
+  mode: 'hash'
 });
 
 export default router;

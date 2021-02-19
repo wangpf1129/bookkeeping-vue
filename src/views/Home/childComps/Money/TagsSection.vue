@@ -11,7 +11,9 @@
       <li>
         <Icon iconName="set"/>
         <span>
-          <router-link to='/home/money/edit'>设置</router-link>
+          <router-link to='/home/money/edit'>
+            <span>设置</span>
+          </router-link>
          </span>
       </li>
     </ol>

@@ -10,19 +10,17 @@
 </template>
 
 <script lang="ts">
+  import Vue from 'vue';
+  import {Component, Prop} from 'vue-property-decorator';
 
-  export default {
+  @Component
+  export default class TopNav extends Vue {
+    @Prop(String) name!: string;
 
-    name: 'TopNav',
-    props: {
-      name: String
-    },
-    methods: {
-      backOne() {
-        console.log('返回上一頁');
-      }
+    backOne() {
+      this.$router.go(-1)
     }
-  };
+  }
 </script>
 
 <style lang="scss" scoped>

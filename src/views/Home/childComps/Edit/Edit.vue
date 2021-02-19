@@ -1,6 +1,6 @@
 <template>
   <div class="edit-wrapper">
-    <TopNav>
+    <TopNav name="back">
       <span slot="title">分类管理</span>
     </TopNav>
     <TypeSection/>
@@ -11,12 +11,13 @@
             <Icon :iconName="tag.iconName"/>
             <span>{{tag.name}}</span>
           </div>
-          <router-link to="xxx">
+          <router-link :to="$route.path+'/edit_tag'">
             <Icon iconName="more"/>
           </router-link>
         </li>
       </ul>
     </section>
+    <router-view/>
   </div>
 </template>
 
@@ -35,6 +36,7 @@
 
   export default class Edit extends Vue {
       tags = tagListModel.tags
+
 
   }
 </script>

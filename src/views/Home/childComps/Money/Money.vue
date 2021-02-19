@@ -26,7 +26,7 @@
     components: {TopNav, CategorySection, TagsSection, KeyboardSection}
   })
   export default class Money extends Vue {
-
+  
     tags = [
       {id: 1, name: '餐饮', iconName: '1', mold: '-'},  // 1
       {id: 2, name: '娱乐', iconName: '2', mold: '-'},  // 2

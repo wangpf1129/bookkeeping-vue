@@ -6,7 +6,7 @@
       <span class="income">本月收入 ￥ 1200</span>
     </div>
     <div class="money-link">
-      <router-link to="/home/money">记一笔</router-link>
+      <router-link :to="$route.path+'/money'">记一笔</router-link>
     </div>
     <router-view/>
   </Layout>
@@ -14,10 +14,13 @@
 
 <script lang="ts">
 
-  export default {
-    name: 'Home',
+  import Vue from 'vue';
+  import {Component} from 'vue-property-decorator';
 
-  };
+  @Component
+  export default class Home extends Vue {
+
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -74,6 +77,7 @@
       font-size: 16px;
     }
   }
+
   .money-link {
     margin: 28px auto 0;
     background-color: #A1DECF;
