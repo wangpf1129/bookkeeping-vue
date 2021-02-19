@@ -16,7 +16,7 @@
       <button>-</button>
       <button>0</button>
       <button>删除</button>
-      <button class="complete">{{result}}</button>
+      <button class="complete" >{{result}}</button>
     </section>
   </div>
 </template>
@@ -40,6 +40,10 @@
       if (text === null) return;
       this.output = generateOutput(text, this.output);
       this.$emit('update:value', parseFloat(this.output));
+      if(text === '完成'){
+        this.$emit('onSubmit')
+        this.output = '0'
+      }
     }
   }
 </script>

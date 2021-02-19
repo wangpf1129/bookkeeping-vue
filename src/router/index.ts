@@ -25,7 +25,7 @@ const routes: Array<RouteConfig> = [
         children:[
           {
             path:'edit',
-            component:Edit
+            component:Edit,
           }
         ]
       },

@@ -1,7 +1,7 @@
 <template>
   <div class="keyboard-wrapper">
     <NotesSection @update:value="onUpdateNotes" :note.sync="note"/>
-    <NumberPadSection @update:value="onUpdateAmount" :amount.sync="amount"/>
+    <NumberPadSection @update:value="onUpdateAmount" :amount.sync="amount" @onSubmit="onSubmit"/>
   </div>
 </template>
 
@@ -25,6 +25,9 @@
 
     onUpdateAmount(amount: number) {
       this.$emit('update:amount', amount);
+    }
+    onSubmit(){
+      this.$emit('onSubmit')
     }
   }
 </script>

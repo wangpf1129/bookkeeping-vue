@@ -11,7 +11,7 @@
       <li>
         <Icon iconName="set"/>
         <span>
-          <router-link to='home/money/edit'>设置</router-link>
+          <router-link to='/home/money/edit'>设置</router-link>
          </span>
       </li>
     </ol>
@@ -25,8 +25,8 @@
 
   @Component
   export default class TagsSection extends Vue {
-    @Prop() tags: { id: number; name: string; iconName: string; mold: string }[] | undefined;
-    @Prop() readonly tagIds!: number[];
+    @Prop(Array) tags: { id: number; name: string; iconName: string; mold: string }[] | undefined;
+    @Prop(Array) readonly tagIds!: number[];
 
     selectedTagIds: number[] = [];
 

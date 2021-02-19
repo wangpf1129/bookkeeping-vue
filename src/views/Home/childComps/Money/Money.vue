@@ -1,13 +1,12 @@
 <template>
   <div class="money-wrapper">
     <TopNav name="back">
-      <CategorySection slot="title"  :type.sync="selected.category" />
+      <CategorySection slot="title" :type.sync="selected.category"/>
     </TopNav>
     <section class="main">
-      {{selected}}
-      <TagsSection :tags.sync="tags"  :tagIds.sync="selected.tagIds" />
+      <TagsSection :tags.sync="tags" :tagIds.sync="selected.tagIds"/>
     </section>
-    <KeyboardSection  :amount.sync="selected.amount" :note.sync="selected.note"/>
+    <KeyboardSection :amount.sync="selected.amount" :note.sync="selected.note" @onSubmit="saveRecord"/>
   </div>
 </template>
 
@@ -18,10 +17,11 @@
   import KeyboardSection from '@/views/Home/childComps/Money/KeyboardSection.vue';
 
   import Vue from 'vue';
-  import {Component} from 'vue-property-decorator';
+  import {Component, Watch} from 'vue-property-decorator';
+  import {recordListModel} from '@/models/recordListModel';
   // import {createId} from '@/common/createId';
 
-  type Category = '-' | '+'
+
   @Component({
     components: {TopNav, CategorySection, TagsSection, KeyboardSection}
   })
@@ -58,14 +58,27 @@
       {id: 28, name: '礼金', iconName: '004', mold: '+'},  // 25
       {id: 29, name: '其他', iconName: '005', mold: '+'},  // 25
     ];
-    selected = {
-      tagIds: [] as number[], // 标签
+    // 初始值
+    selected: RecordItem = {
+      tagIds: [], // 标签
       note: '写点备注...',  // 备注
       createdAt: new Date().toISOString(), //日期
-      category: '-' as Category, // 收入/支出
+      category: '-', // 收入/支出
       amount: 0  // 总和
     };
 
+    recordList = recordListModel.fetch();
+
+    saveRecord() {
+      const newRecord: RecordItem = recordListModel.clone(this.selected);
+      console.log(newRecord);
+      this.recordList.push(newRecord);
+    }
+
+    @Watch('recordList')
+    onRecordListChange() {
+      recordListModel.save(this.recordList)
+    }
   }
 </script>
 

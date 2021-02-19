@@ -1,17 +1,98 @@
 <template>
-  <div>edit.vue</div>
+  <div class="edit-wrapper">
+    <TopNav>
+      <span slot="title">分类管理</span>
+    </TopNav>
+    <TypeSection/>
+    <section class="tags-list">
+      <ul>
+        <li v-for="tag in tags" :key="tag.id">
+          <div class="tags">
+            <Icon :iconName="tag.iconName"/>
+            <span>{{tag.name}}</span>
+          </div>
+          <router-link to="xxx">
+            <Icon iconName="more"/>
+          </router-link>
+        </li>
+      </ul>
+    </section>
+  </div>
 </template>
 
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
+  import TopNav from '@/components/common/TopNav/TopNav.vue';
+  import TypeSection from '@/components/common/TypeSection/TypeSection.vue';
+  import {tagListModel} from '@/models/tagListModel';
 
-  @Component
+  tagListModel.save()
+  tagListModel.fetch()
+  @Component({
+    components: {TypeSection, TopNav}
+  })
+
   export default class Edit extends Vue {
+      tags = tagListModel.tags
 
   }
 </script>
 
 <style lang="scss" scoped>
+  .edit-wrapper {
+    max-width: 520px;
+    margin: 0 auto;
+    background-color: #fff;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
 
+    .tags-list {
+      flex: 1;
+      overflow-y: auto;
+
+      ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 12px;
+        margin-left: 10px;
+
+        > .tags {
+          display: flex;
+          align-items: center;
+
+          > span {
+            padding-left: 8px;
+            font-size: 18px;
+          }
+
+          > .icon {
+            width: 42px;
+            height: 42px;
+          }
+        }
+
+        .icon {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
 </style>
