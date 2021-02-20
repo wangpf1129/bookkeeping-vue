@@ -26,7 +26,7 @@
     components: {TopNav, CategorySection, TagsSection, KeyboardSection}
   })
   export default class Money extends Vue {
-  
+
     tags = [
       {id: 1, name: '餐饮', iconName: '1', mold: '-'},  // 1
       {id: 2, name: '娱乐', iconName: '2', mold: '-'},  // 2
@@ -70,13 +70,12 @@
     recordList = recordListModel.fetch();
 
     saveRecord() {
-      const newRecord: RecordItem = recordListModel.clone(this.selected);
-      this.recordList.push(newRecord);
+      recordListModel.create(this.selected);
     }
 
     @Watch('recordList')
     onRecordListChange() {
-      recordListModel.save(this.recordList)
+      recordListModel.save();
     }
   }
 </script>

@@ -1,9 +1,10 @@
 const localStorageName = 'tagList';
 
-
 type TagListModel = {
   tags: Tag[];
   fetch: () => Tag[];
+  update: (id: number, obj: { name: string; iconName: string; mold: string }) => void;
+  remove: (id: number) => void;
   save: () => void;
 }
 
@@ -41,11 +42,30 @@ const tagListModel: TagListModel = {
   ],
   fetch() {
     this.tags = JSON.parse(window.localStorage.getItem(localStorageName) || '[]');
-    return this.tags
+    return this.tags;
   },
   save() {
-    window.localStorage.setItem(localStorageName, JSON.stringify(this.tags));
-  }
+    return window.localStorage.setItem(localStorageName, JSON.stringify(this.tags));
+  },
+  update(id: number, {name, iconName, mold}) {
+    console.log('update', id, {name, iconName, mold});
+    const newTags = this.tags.map(tag => tag.id === id ? {id, name, iconName, mold} : tag);
+    this.tags = {...newTags};
+    this.save();
+  },
+  remove(id: number) {
+    let index = -1;
+    for (let i = 0; i < this.tags.length; i++) {
+      if (this.tags[i].id === id) {
+        index = i;
+        break;
+      }
+    }
+    this.tags.splice(index, 1);
+    this.save();
+    console.log(this.tags);
+  },
+
 };
 
 export {tagListModel};

@@ -1,13 +1,19 @@
+import clone from '@/common/clone';
+
 const localStorageName = 'recordList';
 const recordListModel = {
-  clone(data: RecordItem[] | RecordItem){
-    return JSON.parse(JSON.stringify(data))
+  data: [] as RecordItem[],
+
+  create(record: RecordItem) {
+    const newRecord: RecordItem = clone(record);
+    this.data.push(newRecord);
   },
   fetch() {
-    return JSON.parse(window.localStorage.getItem(localStorageName) || '[]') as RecordItem[];
+    this.data = JSON.parse(window.localStorage.getItem(localStorageName) || '[]') as RecordItem[];
+    return this.data;
   },
-  save(data: RecordItem[]) {
-    return window.localStorage.setItem(localStorageName, JSON.stringify(data));
+  save() {
+    return window.localStorage.setItem(localStorageName, JSON.stringify(this.data));
   }
 };
 
