@@ -7,7 +7,7 @@ type RecordItem = {
 }
 
 type Tag = {
-  id: number;
+  id: string;
   name: string;
   iconName: string;
   mold: string;

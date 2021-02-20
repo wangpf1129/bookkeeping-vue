@@ -64,7 +64,7 @@
     value = '';
 
     created() {
-      const tag = this.tags.filter(t => t.id === parseFloat(this.id))[0];
+      const tag = this.tags.filter(t => t.id === this.id)[0];
       if (tag) {
         this.tag = tag;
       } else {
@@ -94,14 +94,17 @@
       }
     }
 
-    // addNewTag() {
-    //
-    // }
+    addNewTag() {
+      console.log('添加新标签');
+      // const newTag = tagListModel.create()
+    }
 
 
     deleteOneTag() {
       if (this.tag) {
         tagListModel.remove(this.tag.id);
+        window.alert('删除成功');
+        this.$router.go(-1)
       }
     }
 

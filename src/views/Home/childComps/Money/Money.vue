@@ -19,7 +19,6 @@
   import Vue from 'vue';
   import {Component, Watch} from 'vue-property-decorator';
   import {recordListModel} from '@/models/recordListModel';
-  // import {createId} from '@/common/createId';
 
   @Component({
     components: {TopNav, CategorySection, TagsSection, KeyboardSection}
