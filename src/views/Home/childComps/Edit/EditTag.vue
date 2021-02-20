@@ -56,17 +56,13 @@
   export default class EditTag extends Vue {
     id = this.$route.params.id;
     defaultIcon = defaultIcon;
-    tags = window.tagList;
     iconName = '9999';
     mold = '-';
-    tag?: any = {};
-    value = '';
+    tag = window.findTag(this.id);
+    value = this.tag?.name || '';
 
     created() {
-      const tag = this.tags.filter(t => t.id === this.id)[0];
-      if (tag) {
-        this.tag = tag;
-      } else {
+      if (!this.tag) {
         //表示进入新建分类
       }
     }
@@ -80,11 +76,12 @@
     }
 
     saveTag() {
-      if (this.tag && this.value.trim().length <= 4 && this.value.length > 0) {
+      if (this.tag && this.value && this.value.trim().length <= 4 && this.value.length > 0) {
         const newIconName = this.iconName !== '9999' ? this.iconName : this.tag.iconName;
         const name = this.value, iconName = newIconName, mold = this.mold;
         window.updateTag(this.tag.id, {name, iconName, mold});
         window.alert('添加成功');
+        this.$router.go(-1);
       } else {
         window.alert('不能输入空的标签以及输入的汉字不能超过四个！');
         this.value = '';
@@ -92,8 +89,14 @@
     }
 
     addNewTag() {
-      console.log('添加新标签');
-      // const newTag = tagListModel.create()
+      if (this.value !== '' && this.value.trim().length <= 4) {
+        const name = this.value, iconName = this.iconName, mold = this.mold;
+        window.createTag({name, iconName, mold});
+        window.alert('添加成功');
+        this.$router.go(-1);
+      } else {
+        window.alert('不能输入空的标签以及输入的汉字不能超过四个！');
+      }
     }
 
 
