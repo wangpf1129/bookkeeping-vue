@@ -19,4 +19,7 @@ interface Window {
   createTag: (obj: { name: string; iconName: string; mold: string }) => void;
   removeTag: (id: string) => void;
   updateTag: (id: string, obj: { name: string; iconName: string; mold: string }) => void;
+
+  recordList: RecordItem[];
+  createRecord: (record: RecordItem) => void;
 }

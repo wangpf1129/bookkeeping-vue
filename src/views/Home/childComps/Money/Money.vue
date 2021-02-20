@@ -17,14 +17,12 @@
   import KeyboardSection from '@/views/Home/childComps/Money/KeyboardSection.vue';
 
   import Vue from 'vue';
-  import {Component, Watch} from 'vue-property-decorator';
-  import {recordListModel} from '@/models/recordListModel';
+  import {Component} from 'vue-property-decorator';
 
   @Component({
     components: {TopNav, CategorySection, TagsSection, KeyboardSection}
   })
   export default class Money extends Vue {
-
     tags = window.tagList;
     // 初始值
     selected: RecordItem = {
@@ -35,16 +33,10 @@
       amount: 0  // 总和
     };
 
-    recordList = recordListModel.fetch();
-
+    recordList = window.recordList;
 
     saveRecord() {
-      recordListModel.create(this.selected);
-    }
-
-    @Watch('recordList')
-    onRecordListChange() {
-      recordListModel.save();
+      window.createRecord(this.selected);
     }
   }
 </script>
