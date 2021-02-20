@@ -37,6 +37,8 @@
 
     saveRecord() {
       window.createRecord(this.selected);
+      window.alert('保存成功');
+      window.location.reload();
     }
   }
 </script>

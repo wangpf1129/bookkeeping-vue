@@ -39,9 +39,9 @@
       return null;
     }
 
-    selectedTagIds: number[] = [];
+    selectedTagIds: string[] = [];
 
-    toggleTag(tagId: number) {
+    toggleTag(tagId: string) {
       const index = this.selectedTagIds.indexOf(tagId);
       if (index >= 0) {
         this.selectedTagIds = this.selectedTagIds.filter(item => item !== tagId);
