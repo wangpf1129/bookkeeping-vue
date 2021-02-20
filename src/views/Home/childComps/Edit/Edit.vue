@@ -41,12 +41,14 @@
   })
 
   export default class Edit extends Vue {
+
     tags = tagListModel.tags;
     moldTags: MoldTags = this.tags.filter(tag => tag.mold === '-');
 
     getCategory(category: string) {
       this.moldTags = this.tags.filter(tag => tag.mold === category);
     }
+
   }
 </script>
 
@@ -105,9 +107,10 @@
         }
       }
     }
-    .add_tag{
+
+    .add_tag {
       text-align: center;
-      background-color:#9ccac0;
+      background-color: #9ccac0;
       font-size: 22px;
       padding: 14px 0;
     }

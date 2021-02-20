@@ -71,7 +71,6 @@
 
     saveRecord() {
       const newRecord: RecordItem = recordListModel.clone(this.selected);
-      console.log(newRecord);
       this.recordList.push(newRecord);
     }
 

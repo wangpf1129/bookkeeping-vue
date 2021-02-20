@@ -4,19 +4,18 @@
       <span slot="title">{{id === '9999' ? '新建分类' : '编辑分类'}}</span>
     </TopNav>
     <section class="input_tag">
-      <TypeSection>
+      <TypeSection @getCategory="getCategory">
         <CategorySection/>
       </TypeSection>
-      <label v-if="tag.id !== 9999 ">
-        <Icon :iconName="tag.iconName"/>
+      <label v-if="id !== '9999' ">
+        <Icon :iconName="iconName === '9999' ? tag.iconName : iconName"/>
         <input type="text"
                placeholder="请输入分类类型(不超过四个字)"
                v-model="value"
         />
-
       </label>
-      <label v-if="tag.id === 9999 ">
-        <Icon iconName="9999"/>
+      <label v-if="id === '9999' ">
+        <Icon :iconName="iconName"/>
         <input type="text"
                placeholder="请输入分类类型(不超过四个字)"
                v-model="value"
@@ -25,18 +24,18 @@
     </section>
     <section class="icon_list">
       <ul>
-        <li v-for="icon in  defaultIcon" :key="icon.id">
+        <li v-for="icon in  defaultIcon" :key="icon.id" @click="getIconName(icon.iconName)">
           <Icon :iconName="icon.iconName"/>
         </li>
       </ul>
     </section>
     <section>
       <div class="button_tag" v-if="id === '9999'">
-        <button class="save">添加新标签</button>
+        <button class="save" @click="addNewTag">添加新标签</button>
       </div>
       <div class="button_tag" v-else>
-        <button class="save">保存标签</button>
-        <button class="delete">删除标签</button>
+        <button class="save" @click="saveTag">保存标签</button>
+        <button class="delete" @click="deleteOneTag">删除标签</button>
       </div>
     </section>
   </div>
@@ -57,19 +56,55 @@
   export default class EditTag extends Vue {
     id = this.$route.params.id;
     defaultIcon = defaultIcon;
-    tag?: Tag = undefined;
+    iconName = '9999';
+    mold = '-';
+    tag?: any = {};
     value = '';
 
     created() {
       tagListModel.fetch();
       const tags = tagListModel.tags;
       const tag = tags.filter(t => t.id === parseFloat(this.id))[0];
-      if(tag){
-        this.tag = tag
-      }else{
-        this.$router.replace('/404')
+      if (tag) {
+        this.tag = tag;
+      } else {
+        //表示进入新建分类
       }
     }
+
+    getCategory(category: string) {
+      this.mold = category;
+    }
+
+    getIconName(iconName: string) {
+      this.iconName = iconName;
+    }
+
+    saveTag() {
+      if (this.tag && this.value.trim().length <= 4 && this.value.length > 0) {
+        // this.tag.name = this.value;
+        // 更新 tags 代码
+        const newIconName = this.iconName !== '9999' ? this.iconName : this.tag.iconName;
+        const name = this.value, iconName = newIconName, mold = this.mold;
+        tagListModel.update(this.tag.id, {name, iconName, mold});
+        window.alert('添加成功');
+      } else {
+        window.alert('不能输入空的标签以及输入的汉字不能超过四个！');
+        this.value = '';
+      }
+    }
+
+    // addNewTag() {
+    //
+    // }
+
+
+    deleteOneTag() {
+      if (this.tag) {
+        tagListModel.remove(this.tag.id);
+      }
+    }
+
   }
 </script>
 

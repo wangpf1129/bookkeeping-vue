@@ -19,6 +19,8 @@
       this.$emit('getCategory',newCategory)
     }
 
+
+
   }
 </script>
 
