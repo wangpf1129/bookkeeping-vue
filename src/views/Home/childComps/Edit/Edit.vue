@@ -31,13 +31,14 @@
   import {Component} from 'vue-property-decorator';
   import TopNav from '@/components/common/TopNav/TopNav.vue';
   import TypeSection from '@/components/common/TypeSection/TypeSection.vue';
+  import store from '@/store/index2';
 
   @Component({
     components: {TypeSection, TopNav}
   })
 
   export default class Edit extends Vue {
-    tags = window.tagList;
+    tags = store.tagList;
 
     moldTags: Tag[] = this.tags.filter(tag => tag.mold === '-');
 

@@ -18,12 +18,13 @@
 
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
+  import store from '@/store/index2';
 
   @Component({
     components: {TopNav, CategorySection, TagsSection, KeyboardSection}
   })
   export default class Money extends Vue {
-    tags = window.tagList;
+    tags = store.tagList;
     // 初始值
     selected: RecordItem = {
       tagIds: [], // 标签
@@ -33,10 +34,10 @@
       amount: 0  // 总和
     };
 
-    recordList = window.recordList;
+    recordList = store.recordList;
 
     saveRecord() {
-      window.createRecord(this.selected);
+      store.createRecord(this.selected);
       window.alert('保存成功');
       window.location.reload();
     }

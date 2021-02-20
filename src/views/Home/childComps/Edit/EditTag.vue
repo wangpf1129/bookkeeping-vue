@@ -48,6 +48,7 @@
   import TypeSection from '@/components/common/TypeSection/TypeSection.vue';
   import CategorySection from '@/views/Home/childComps/Money/CategorySection.vue';
   import {defaultIcon} from '@/common/iconsLib';
+  import store from '@/store/index2';
 
 
   @Component({
@@ -58,14 +59,14 @@
     defaultIcon = defaultIcon;
     iconName = '9999';
     mold = '-';
-    tag = window.findTag(this.id);
+    tag = store.findTag(this.id);
     value = this.tag?.name || '';
 
-    created() {
-      if (!this.tag) {
-        //表示进入新建分类
-      }
-    }
+    // created() {
+    //   if (!this.tag) {
+    //     //表示进入新建分类
+    //   }
+    // }
 
     getCategory(category: string) {
       this.mold = category;
@@ -79,7 +80,7 @@
       if (this.tag && this.value && this.value.trim().length <= 4 && this.value.length > 0) {
         const newIconName = this.iconName !== '9999' ? this.iconName : this.tag.iconName;
         const name = this.value, iconName = newIconName, mold = this.mold;
-        window.updateTag(this.tag.id, {name, iconName, mold});
+        store.updateTag(this.tag.id, {name, iconName, mold});
         window.alert('添加成功');
         this.$router.go(-1);
       } else {
@@ -91,7 +92,7 @@
     addNewTag() {
       if (this.value !== '' && this.value.trim().length <= 4) {
         const name = this.value, iconName = this.iconName, mold = this.mold;
-        window.createTag({name, iconName, mold});
+        store.createTag({name, iconName, mold});
         window.alert('添加成功');
         this.$router.go(-1);
       } else {
@@ -102,7 +103,7 @@
 
     deleteOneTag() {
       if (this.tag) {
-        window.removeTag(this.tag.id);
+        store.removeTag(this.tag.id);
         window.alert('删除成功');
         this.$router.go(-1);
       }
