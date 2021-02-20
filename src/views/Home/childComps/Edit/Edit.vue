@@ -31,9 +31,7 @@
   import {Component} from 'vue-property-decorator';
   import TopNav from '@/components/common/TopNav/TopNav.vue';
   import TypeSection from '@/components/common/TypeSection/TypeSection.vue';
-  import {tagListModel} from '@/models/tagListModel';
 
-  type MoldTags = typeof tagListModel.tags
   @Component({
     components: {TypeSection, TopNav}
   })
@@ -41,7 +39,7 @@
   export default class Edit extends Vue {
     tags = window.tagList;
 
-    moldTags: MoldTags = this.tags.filter(tag => tag.mold === '-');
+    moldTags: Tag[] = this.tags.filter(tag => tag.mold === '-');
 
     getCategory(category: string) {
       this.moldTags = this.tags.filter(tag => tag.mold === category);

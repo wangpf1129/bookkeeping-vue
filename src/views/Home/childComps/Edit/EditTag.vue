@@ -44,7 +44,6 @@
 <script lang="ts">
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import {tagListModel} from '@/models/tagListModel';
   import TopNav from '@/components/common/TopNav/TopNav.vue';
   import TypeSection from '@/components/common/TypeSection/TypeSection.vue';
   import CategorySection from '@/views/Home/childComps/Money/CategorySection.vue';
@@ -82,11 +81,9 @@
 
     saveTag() {
       if (this.tag && this.value.trim().length <= 4 && this.value.length > 0) {
-        // this.tag.name = this.value;
-        // 更新 tags 代码
         const newIconName = this.iconName !== '9999' ? this.iconName : this.tag.iconName;
         const name = this.value, iconName = newIconName, mold = this.mold;
-        tagListModel.update(this.tag.id, {name, iconName, mold});
+        window.updateTag(this.tag.id, {name, iconName, mold});
         window.alert('添加成功');
       } else {
         window.alert('不能输入空的标签以及输入的汉字不能超过四个！');
@@ -102,9 +99,9 @@
 
     deleteOneTag() {
       if (this.tag) {
-        tagListModel.remove(this.tag.id);
+        window.removeTag(this.tag.id);
         window.alert('删除成功');
-        this.$router.go(-1)
+        this.$router.go(-1);
       }
     }
 
