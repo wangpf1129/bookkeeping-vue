@@ -21,7 +21,7 @@
   import store from '@/store/index2';
 
   @Component({
-    components: {TopNav, CategorySection, TagsSection, KeyboardSection}
+    components: {TopNav, CategorySection, TagsSection, KeyboardSection},
   })
   export default class Money extends Vue {
     tags = store.tagList;

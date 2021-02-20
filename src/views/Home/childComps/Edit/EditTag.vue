@@ -60,7 +60,7 @@
     iconName = '9999';
     mold = '-';
     tag = store.findTag(this.id);
-    value = this.tag?.name || '';
+    value = this.tag && this.tag.name || '';
 
     // created() {
     //   if (!this.tag) {
