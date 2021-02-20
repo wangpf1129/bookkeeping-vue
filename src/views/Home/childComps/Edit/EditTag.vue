@@ -50,21 +50,21 @@
   import CategorySection from '@/views/Home/childComps/Money/CategorySection.vue';
   import {defaultIcon} from '@/common/iconsLib';
 
+
   @Component({
     components: {CategorySection, TypeSection, TopNav}
   })
   export default class EditTag extends Vue {
     id = this.$route.params.id;
     defaultIcon = defaultIcon;
+    tags = window.tagList;
     iconName = '9999';
     mold = '-';
     tag?: any = {};
     value = '';
 
     created() {
-      tagListModel.fetch();
-      const tags = tagListModel.tags;
-      const tag = tags.filter(t => t.id === parseFloat(this.id))[0];
+      const tag = this.tags.filter(t => t.id === parseFloat(this.id))[0];
       if (tag) {
         this.tag = tag;
       } else {

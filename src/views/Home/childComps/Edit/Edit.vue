@@ -33,16 +33,14 @@
   import TypeSection from '@/components/common/TypeSection/TypeSection.vue';
   import {tagListModel} from '@/models/tagListModel';
 
-  tagListModel.save();
-  tagListModel.fetch();
   type MoldTags = typeof tagListModel.tags
   @Component({
     components: {TypeSection, TopNav}
   })
 
   export default class Edit extends Vue {
+    tags = window.tagList;
 
-    tags = tagListModel.tags;
     moldTags: MoldTags = this.tags.filter(tag => tag.mold === '-');
 
     getCategory(category: string) {

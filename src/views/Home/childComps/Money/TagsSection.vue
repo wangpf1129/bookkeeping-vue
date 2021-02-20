@@ -27,15 +27,16 @@
 
   @Component
   export default class TagsSection extends Vue {
-    @Prop(Array) tags: { id: number; name: string; iconName: string; mold: string }[] | undefined;
+    @Prop(Array) tags: Tag[] | undefined;
     @Prop(Array) readonly tagIds!: number[];
-    @Prop(String) readonly type!: string
+    @Prop(String) readonly type!: string;
+
 
     get moldTags() {
-      if(this.tags !== undefined){
+      if (this.tags !== undefined) {
         return this.tags.filter(tag => tag.mold === this.type);
       }
-      return null
+      return null;
     }
 
     selectedTagIds: number[] = [];

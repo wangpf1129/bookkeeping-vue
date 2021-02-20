@@ -12,3 +12,7 @@ type Tag = {
   iconName: string;
   mold: string;
 }
+
+interface Window {
+  tagList: Tag[];
+}
