@@ -17,11 +17,7 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
 
-  @Component({
-    computed:{
-
-    }
-  })
+  @Component
   export default class Home extends Vue {
 
   }

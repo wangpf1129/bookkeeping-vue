@@ -62,7 +62,6 @@
     tag = this.tags.filter(t => t.id === this.id)[0];
     value = this.tag && this.tag.name || '';
 
-
     created() {
       // if (!this.tag) {
       //   //表示进入新建分类

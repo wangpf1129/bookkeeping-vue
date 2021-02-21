@@ -5,20 +5,25 @@ import {nanoid} from 'nanoid';
 
 Vue.use(Vuex);
 
+type RootStore = {
+  recordList: RecordItem[];
+  tagList: Tag[];
+  currentTag?: Tag;
+}
 const store = new Vuex.Store({
   state: {
-    recordList: [] as RecordItem[],
-    tagList: [] as Tag[],
-  },
+    recordList: [],
+    tagList: [],
+  } as RootStore,
+
   mutations: {
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
-      return state.recordList;
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
-    createRecord(state, record) {
+    createRecord(state, record: RecordItem) {
       if (record.tagIds.length === 0) {
         alert('请输入标签!');
         return;
@@ -27,7 +32,6 @@ const store = new Vuex.Store({
         alert('请输入金额!');
         return;
       }
-
       const newRecord: RecordItem = clone(record);
       state.recordList.push(newRecord);
       store.commit('saveRecords');
@@ -70,12 +74,11 @@ const store = new Vuex.Store({
         ] as Tag[];
       }
       state.tagList = [...localTags];
-      return state.tagList;
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
-    createTag(state, {name, iconName, mold}) {
+    createTag(state, {name, iconName, mold}: { name: string; iconName: string; mold: string }) {
       state.tagList.push({id: nanoid(10), name, iconName, mold});
       store.commit('saveTags');
       window.location.reload();
@@ -92,7 +95,7 @@ const store = new Vuex.Store({
       store.commit('saveTags');
       window.location.reload();
     },
-    updateTag(state, {id, name, iconName, mold}) {
+    updateTag(state, {id, name, iconName, mold}: { id: string;name: string; iconName: string; mold: string }) {
       const newTags = state.tagList.map(tag => tag.id === id ? {id, name, iconName, mold} : tag);
       state.tagList = [...newTags];
       store.commit('saveTags');
