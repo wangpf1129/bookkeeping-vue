@@ -7,5 +7,4 @@ const store = {
   ...tagListStore,
   ...recordListStore
 };
-
 export default store;

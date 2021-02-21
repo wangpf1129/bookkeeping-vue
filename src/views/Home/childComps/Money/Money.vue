@@ -22,6 +22,7 @@
 
   @Component({
     components: {TopNav, CategorySection, TagsSection, KeyboardSection},
+
   })
   export default class Money extends Vue {
     tags = store.tagList;
@@ -33,14 +34,11 @@
       category: '-', // 收入/支出
       amount: 0  // 总和
     };
-
-    recordList = store.recordList;
-
+    created(){
+      this.$store.commit('fetchRecords')
+    }
     saveRecord() {
-      if (store.createRecord(this.selected)) {
-        window.alert('保存成功');
-        window.location.reload();
-      }
+      this.$store.commit('createRecord',this.selected)
     }
   }
 </script>
