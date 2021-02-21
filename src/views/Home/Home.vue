@@ -5,10 +5,7 @@
       <span class="pay">￥ 18</span>
       <span class="income">本月收入 ￥ 1200</span>
     </div>
-    <div class="money-link">
-      <router-link :to="`${$route.path}/money`">记一笔</router-link>
-    </div>
-    <router-view/>
+    <money-key/>
   </Layout>
 </template>
 
@@ -16,8 +13,10 @@
 
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-
-  @Component
+  import MoneyKey from '@/components/common/MoneyKey/MoneyKey.vue';
+  @Component({
+    components: {MoneyKey}
+  })
   export default class Home extends Vue {
 
   }

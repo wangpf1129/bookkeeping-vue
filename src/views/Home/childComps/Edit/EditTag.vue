@@ -4,9 +4,7 @@
       <span slot="title">{{id === '9999' ? '新建分类' : '编辑分类'}}</span>
     </TopNav>
     <section class="input_tag">
-      <TypeSection @getCategory="getCategory">
-        <CategorySection/>
-      </TypeSection>
+      <TypeSection @getCategory="getCategory" />
       <label v-if="id !== '9999' ">
         <Icon :iconName="iconName === '9999' ? tag.iconName : iconName"/>
         <input type="text"

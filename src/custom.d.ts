@@ -1,5 +1,5 @@
 type RecordItem = {
-  tagIds: number[];
+  tagIds: string[];
   note: string;
   createdAt: string;
   category: '-' | '+';
