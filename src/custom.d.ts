@@ -21,7 +21,7 @@ interface TagListStore {
   findTag: (id: string) => Tag | undefined;
   createTag: (obj: { name: string; iconName: string; mold: string }) => void;
   removeTag: (id: string) => void;
-  updateTag: (id: string, obj: { name: string; iconName: string; mold: string }) => void;
+  updateTag: (obj: { id: string; name: string; iconName: string; mold: string }) => void;
 }
 
 interface RecordListStore {

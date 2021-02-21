@@ -18,14 +18,14 @@
 
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
-  import store from '@/store/index2';
 
   @Component({
     components: {TopNav, CategorySection, TagsSection, KeyboardSection},
-
   })
   export default class Money extends Vue {
-    tags = store.tagList;
+    get tags() {
+      return this.$store.state.tagList;
+    }
     // 初始值
     selected: RecordItem = {
       tagIds: [], // 标签
@@ -34,11 +34,15 @@
       category: '-', // 收入/支出
       amount: 0  // 总和
     };
-    created(){
-      this.$store.commit('fetchRecords')
+
+    created() {
+      this.$store.commit('fetchRecords');
+      this.$store.commit('fetchTags');
+
     }
+
     saveRecord() {
-      this.$store.commit('createRecord',this.selected)
+      this.$store.commit('createRecord', this.selected);
     }
   }
 </script>

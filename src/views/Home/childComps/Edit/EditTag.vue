@@ -48,7 +48,6 @@
   import TypeSection from '@/components/common/TypeSection/TypeSection.vue';
   import CategorySection from '@/views/Home/childComps/Money/CategorySection.vue';
   import {defaultIcon} from '@/common/iconsLib';
-  import store from '@/store/index2';
 
 
   @Component({
@@ -59,14 +58,16 @@
     defaultIcon = defaultIcon;
     iconName = '9999';
     mold = '-';
-    tag = store.findTag(this.id);
+    tags = this.$store.state.tagList as Tag[];
+    tag = this.tags.filter(t => t.id === this.id)[0];
     value = this.tag && this.tag.name || '';
 
-    // created() {
-    //   if (!this.tag) {
-    //     //表示进入新建分类
-    //   }
-    // }
+
+    created() {
+      // if (!this.tag) {
+      //   //表示进入新建分类
+      // }
+    }
 
     getCategory(category: string) {
       this.mold = category;
@@ -79,8 +80,8 @@
     saveTag() {
       if (this.tag && this.value && this.value.trim().length <= 4 && this.value.length > 0) {
         const newIconName = this.iconName !== '9999' ? this.iconName : this.tag.iconName;
-        const name = this.value, iconName = newIconName, mold = this.mold;
-        store.updateTag(this.tag.id, {name, iconName, mold});
+        const id = this.tag.id, name = this.value, iconName = newIconName, mold = this.mold;
+        this.$store.commit('updateTag', {id, name, iconName, mold});
         window.alert('添加成功');
         this.$router.go(-1);
       } else {
@@ -92,7 +93,7 @@
     addNewTag() {
       if (this.value !== '' && this.value.trim().length <= 4) {
         const name = this.value, iconName = this.iconName, mold = this.mold;
-        store.createTag({name, iconName, mold});
+        this.$store.commit('createTag', {name, iconName, mold});
         window.alert('添加成功');
         this.$router.go(-1);
       } else {
@@ -103,7 +104,7 @@
 
     deleteOneTag() {
       if (this.tag) {
-        store.removeTag(this.tag.id);
+        this.$store.commit('removeTag', this.tag.id);
         window.alert('删除成功');
         this.$router.go(-1);
       }
