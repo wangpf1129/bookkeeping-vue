@@ -16,7 +16,6 @@ type Tag = {
 type RootStore = {
   recordList: RecordItem[];
   tagList: Tag[];
-  currentTag?: Tag;
 }
 
 type Payload = {

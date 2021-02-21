@@ -10,7 +10,11 @@ const store = new Vuex.Store({
     recordList: [],
     tagList: [],
   } as RootStore,
-
+  getters: {
+    findTag: (state) => (id: string) => {
+      return state.tagList.filter(t => t.id === id)[0];
+    }
+  },
   mutations: {
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
@@ -98,9 +102,7 @@ const store = new Vuex.Store({
       store.commit('saveTags');
       window.location.reload();
     },
-  },
-  actions: {},
-  modules: {}
+  }
 });
 
 export default store;

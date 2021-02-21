@@ -59,8 +59,9 @@
     iconName = '9999';
     mold = '-';
     tags = this.$store.state.tagList as Tag[];
-    tag = this.tags.filter(t => t.id === this.id)[0];
+    tag = this.$store.getters.findTag(this.id)
     value = this.tag && this.tag.name || '';
+
 
     created() {
       // if (!this.tag) {
