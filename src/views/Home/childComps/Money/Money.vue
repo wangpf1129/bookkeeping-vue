@@ -37,9 +37,10 @@
     recordList = store.recordList;
 
     saveRecord() {
-      store.createRecord(this.selected);
-      window.alert('保存成功');
-      window.location.reload();
+      if (store.createRecord(this.selected)) {
+        window.alert('保存成功');
+        window.location.reload();
+      }
     }
   }
 </script>
