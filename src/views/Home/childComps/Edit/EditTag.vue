@@ -92,6 +92,12 @@
     addNewTag() {
       if (this.value !== '' && this.value.trim().length <= 4) {
         const name = this.value, iconName = this.iconName, mold = this.mold;
+        for (let i = 0; i < this.tags.length; i++) {
+          if (name === this.tags[i].name) {
+            window.alert('标签名重复');
+            return;
+          }
+        }
         this.$store.commit('createTag', {name, iconName, mold});
         window.alert('添加成功');
         this.$router.go(-1);

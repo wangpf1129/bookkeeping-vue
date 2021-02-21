@@ -13,3 +13,15 @@ type Tag = {
   mold: string;
 }
 
+type RootStore = {
+  recordList: RecordItem[];
+  tagList: Tag[];
+  currentTag?: Tag;
+}
+
+type Payload = {
+  id?: string;
+  name: string;
+  iconName: string;
+  mold: string;
+}

@@ -5,11 +5,6 @@ import {nanoid} from 'nanoid';
 
 Vue.use(Vuex);
 
-type RootStore = {
-  recordList: RecordItem[];
-  tagList: Tag[];
-  currentTag?: Tag;
-}
 const store = new Vuex.Store({
   state: {
     recordList: [],
@@ -78,7 +73,8 @@ const store = new Vuex.Store({
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
     },
-    createTag(state, {name, iconName, mold}: { name: string; iconName: string; mold: string }) {
+    createTag(state, payload: Payload) {
+      const {name, iconName, mold} = payload;
       state.tagList.push({id: nanoid(10), name, iconName, mold});
       store.commit('saveTags');
       window.location.reload();
@@ -95,7 +91,8 @@ const store = new Vuex.Store({
       store.commit('saveTags');
       window.location.reload();
     },
-    updateTag(state, {id, name, iconName, mold}: { id: string;name: string; iconName: string; mold: string }) {
+    updateTag(state, payload: Payload) {
+      const {id, name, iconName, mold} = payload;
       const newTags = state.tagList.map(tag => tag.id === id ? {id, name, iconName, mold} : tag);
       state.tagList = [...newTags];
       store.commit('saveTags');
