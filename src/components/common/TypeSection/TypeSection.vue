@@ -1,6 +1,6 @@
 <template>
   <div class="typeSection-wrapper">
-    <CategorySection class="typeStyle" :type.sync="category"/>
+    <CategorySection classPrefix="types" :type.sync="category"/>
   </div>
 </template>
 
@@ -8,19 +8,17 @@
   import Vue from 'vue';
   import {Component, Watch} from 'vue-property-decorator';
   import CategorySection from '@/views/Home/childComps/Money/CategorySection.vue';
+
   @Component({
     components: {CategorySection}
   })
   export default class TypeSection extends Vue {
-    category = '-'
+    category = '-';
 
     @Watch('category')
-    onCategoryChange(newCategory: string){
-      this.$emit('getCategory',newCategory)
+    onCategoryChange(newCategory: string) {
+      this.$emit('getCategory', newCategory);
     }
-
-
-
   }
 </script>
 
@@ -30,5 +28,21 @@
     margin-bottom: 22px;
     display: flex;
     justify-content: center;
+
+    ::v-deep {
+      .types-item {
+        padding: 8px 24px;
+        font-size: 18px;
+        margin-right: 10px;
+        margin-left: 10px;
+      }
+
+      .selected {
+        background-color: #9ccac0;
+        border: none;
+        color: white;
+        border-radius: 4px;
+      }
+    }
   }
 </style>

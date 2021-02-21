@@ -1,7 +1,9 @@
 <template>
-  <div class="category-wrapper" :class="typeStyle">
-    <span :class="type === '-' && 'selected'" @click="selectType('-')">支出</span>
-    <span :class="type === '+' && 'selected'" @click="selectType('+')">收入</span>
+  <div class="category-wrapper">
+    <span class="span-item" :class="{[classPrefix+'-item']:classPrefix,selected:type === '-'}"
+          @click="selectType('-')">支出</span>
+    <span class="span-item" :class="{[classPrefix+'-item']:classPrefix,selected:type === '+'}"
+          @click="selectType('+')">收入</span>
   </div>
 </template>
 
@@ -12,7 +14,7 @@
   @Component
   export default class CategorySection extends Vue {
     @Prop(String) readonly type!: string;
-    @Prop(String) readonly typeStyle!: string;
+    @Prop(String) readonly classPrefix?: string;
 
     selectType(type: string) {
       if (type !== '-' && type !== '+') {
@@ -28,7 +30,7 @@
     font-size: 18px;
     padding: 3px 0;
 
-    > span {
+    .span-item {
       margin-left: 8px;
       padding: 8px;
     }
@@ -37,21 +39,6 @@
       border-bottom: 2px solid #000;
     }
 
-    &.typeStyle {
-      span {
-        padding: 8px 24px;
-        font-size: 18px;
-        margin-right: 10px;
-        margin-left: 10px;
-      }
-
-      .selected {
-        background-color: #9ccac0;
-        border: none;
-        color: white;
-        border-radius: 4px;
-      }
-    }
   }
 
 
