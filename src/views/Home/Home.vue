@@ -2,8 +2,8 @@
   <Layout name="TODAY">
     <div class="show-money">
       <span class="title">今日支出</span>
-      <span class="pay">￥ 18</span>
-      <span class="income">本月收入 ￥ 1200</span>
+      <span class="pay">￥ {{expenses}}</span>
+      <span class="income">本月收入 ￥ {{income}}</span>
     </div>
     <money-key/>
   </Layout>
@@ -14,10 +14,27 @@
   import Vue from 'vue';
   import {Component} from 'vue-property-decorator';
   import MoneyKey from '@/components/common/MoneyKey/MoneyKey.vue';
+  import day from 'dayjs';
+
   @Component({
     components: {MoneyKey}
   })
   export default class Home extends Vue {
+
+    get expenses() {
+      const today = day(new Date()).format('DD');
+      return (this.$store.getters.expensesMoney(today) as number[]).reduce((preMoney, amount) => {
+        return preMoney += amount;
+      }, 0);
+    }
+
+    get income() {
+      const mouth = day(new Date()).format('MM');
+      return (this.$store.getters.incomeMoney(mouth) as number[]).reduce((preMoney, amount) => {
+        return preMoney += amount;
+      }, 0);
+    }
+
 
   }
 </script>

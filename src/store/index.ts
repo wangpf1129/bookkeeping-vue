@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import clone from '@/common/clone';
 import {nanoid} from 'nanoid';
+import day from 'dayjs';
 
 Vue.use(Vuex);
 
@@ -11,19 +12,81 @@ const store = new Vuex.Store({
     tagList: [],
   } as RootStore,
   getters: {
+    // tags
     findTag: (state) => (id: string) => {
       return state.tagList.filter(t => t.id === id)[0];
     },
     getItemIcon: (state) => (id: string) => {
       const tag = state.tagList.filter(tag => tag.id === id)[0];
-      return tag ? tag.name : "";
+      return tag ? tag.name : '';
     },
     getItemName: (state) => (id: string) => {
       const tag = state.tagList.filter(tag => tag.id === id)[0];
       return tag ? tag.iconName : '9999';
+    },
+    // 获取 收入的标签
+    income: (state) => {
+      return state.recordList.filter(item => item.category === '+');
+    },
+    // 获取 今日收入的金额
+    incomeMoney: () => (today: string) => {
+      const todayIncome = (store.getters.income as RecordItem[])
+              .filter(item => day(item.createdAt).format('MM') === today);
+      return todayIncome.map(item => item.amount);
+    },
+    // 获取总收入
+    incomeAll: () => {
+      (store.getters.income as RecordItem[])
+              .map(item => item.amount).reduce((preMoney, amount) => {
+        return preMoney += amount;
+      }, 0);
+    },
+    // 获取 支出的标签
+    expenses: (state) => {
+      return state.recordList.filter(item => item.category === '-');
+    },
+    // 获取 本月支出的金额
+    expensesMoney: () => (today: string) => {
+      const mouthExpenses = (store.getters.expenses as RecordItem[])
+              .filter(item => day(item.createdAt).format('DD') === today);
+      return mouthExpenses.map(item => item.amount);
+    },
+    // 获取总支出
+    expensesALL: () => {
+      (store.getters.expenses as RecordItem[])
+              .map(item => item.amount).reduce((preMoney, amount) => {
+        return preMoney += amount;
+      }, 0);
+    },
+    // 获取当日的总收入或总支出
+    dayTotalList: (state) => (type: string) => {
+      // 日期从大到小排
+      const newList = [...state.recordList]
+              .filter(r => r.category === type)
+              .sort((a, b) => day(b.createdAt).valueOf() - day(a.createdAt).valueOf());
+      if (newList.length === 0) {return [];}
+
+      type Result = { title: string; total?: number; items: RecordItem[] }[]
+      const result: Result = [{title: day(newList[0].createdAt).format('MM/DD'), items: [newList[0]]}];
+      for (let i = 1; i < newList.length; i++) {
+        const current = newList[i];
+        const last = result[result.length - 1];
+        if (day(last.title).isSame(day(current.createdAt), 'day')) {
+          last.items.push(current);
+        } else {
+          result.push({title: day(current.createdAt).format('MM/DD'), items: [current]});
+        }
+      }
+      // 将金额相加
+      result.map(group =>
+              group.total = group.items.reduce((sum, item) => {
+                return sum + item.amount;
+              }, 0));
+      return result;
     }
   },
   mutations: {
+    // records
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
       store.commit('saveRecords');
@@ -48,6 +111,7 @@ const store = new Vuex.Store({
       window.alert('保存成功');
       window.location.reload();
     },
+    // tags
     fetchTags(state) {
       let localTags = JSON.parse(window.localStorage.getItem('tagList') || '[]');
       if (localTags.length === 0) {
