@@ -20,4 +20,9 @@
 </script>
 <style lang="scss">
   @import "~@/assets/style/index.scss";
+
+  #app {
+    max-width: 520px;
+    margin: 0 auto;
+  }
 </style>
