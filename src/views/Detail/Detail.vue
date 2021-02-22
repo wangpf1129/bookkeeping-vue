@@ -1,14 +1,14 @@
 <template>
   <Layout name="明细">
     <TypeSection @getCategory="getCategory"/>
-    <section class="icon_div" v-if="result.length === 0">
+    <section class="icon_div" v-if="groupList.length === 0">
       <Icon iconName="none"/>
       <money-key/>
     </section>
-    <section v-if="result.length !== 0">
-      <div v-for="([date,records],index) in result" :key="index">
+    <section v-if="groupList.length !== 0">
+      <div v-for="([date,group],index) in groupList" :key="index">
         <div class="date_div">{{date}}</div>
-        <div class="record_list" v-for="(item,index) in records" :key="index">
+        <div class="record_list" v-for="(item,index) in group" :key="index">
           <div class="record_items">
             <div class="left">
               <span><Icon :iconName="$store.getters.getItemName(item.tagIds[0])"/></span>
@@ -58,7 +58,7 @@
     }
 
 
-    get result() {
+    get groupList() {
       const {recordList} = this;
       const hash: { [key: string]: RecordItem[] } = {};
       const selectedRecords = recordList.filter(r => r.category === this.category);
@@ -70,15 +70,14 @@
         hash[key].push(r);
         return hash;
       });
-      // 把对象变为数组   已时间排序
-      const array = Object.entries(hash).sort((a, b) => {
+      // 把对象变为数组   以时间排序
+      return Object.entries(hash).sort((a, b) => {
         if (a[0] === b[0]) return 0;
         if (a[0] > b[0]) return -1;
         if (a[0] < b[0]) return 1;
         return 0;
       });
-      console.log(array);
-      return array;
+
     }
 
     get itemDate() {

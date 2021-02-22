@@ -1,6 +1,10 @@
 <template>
   <div class="keyboard-wrapper">
-    <NotesSection @update:value="onUpdateNotes" :note.sync="note"/>
+    <NotesSection @update:noteValue="onUpdateNotes"
+                  :note.sync="note"
+                  @update:dateValue="onUpdateCreatedAt"
+                  :createdAt.sync="createdAt"
+    />
     <NumberPadSection @update:value="onUpdateAmount" :amount.sync="amount" @onSubmit="onSubmit"/>
   </div>
 </template>
@@ -17,15 +21,21 @@
   })
   export default class KeyboardSection extends Vue {
     @Prop(String) readonly note!: string;
+    @Prop(String) readonly createdAt!: string
     @Prop(Number) readonly amount!: number;
+
 
     onUpdateNotes(note: string) {
       this.$emit('update:note', note);
+    }
+    onUpdateCreatedAt(createdAt: string){
+      this.$emit('update:createdAt',createdAt)
     }
 
     onUpdateAmount(amount: number) {
       this.$emit('update:amount', amount);
     }
+
     onSubmit(){
       this.$emit('onSubmit')
     }

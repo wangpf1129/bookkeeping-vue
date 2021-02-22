@@ -16,7 +16,6 @@ const store = new Vuex.Store({
     },
     getItemIcon: (state) => (id: string) => {
       const tag = state.tagList.filter(tag => tag.id === id)[0];
-      console.log(tag);
       return tag ? tag.name : "";
     },
     getItemName: (state) => (id: string) => {
@@ -42,6 +41,7 @@ const store = new Vuex.Store({
         alert('请输入金额!');
         return;
       }
+
       const newRecord: RecordItem = clone(record);
       state.recordList.push(newRecord);
       store.commit('saveRecords');

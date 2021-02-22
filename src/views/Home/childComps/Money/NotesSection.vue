@@ -7,7 +7,9 @@
     <label class="create_date">
       <Icon iconName="date"/>
       <input type="datetime-local"
-             class="dateIpt"/>
+             class="dateIpt"
+             v-model="dateValue"
+      />
     </label>
     <MaskDiv :style="styleInput" @closeMask="closeMask" @sureText="sureText"/>
   </div>
@@ -16,8 +18,9 @@
 <script lang="ts">
 
   import Vue from 'vue';
-  import {Component, Prop} from 'vue-property-decorator';
+  import {Component, Prop, Watch} from 'vue-property-decorator';
   import MaskDiv from '@/views/Home/childComps/Money/MaskDiv.vue';
+  import day from 'dayjs';
 
   interface StyleInput {
     display: string;
@@ -28,8 +31,18 @@
   })
   export default class NotesSection extends Vue {
     @Prop(String) readonly note!: string;
+    @Prop(String) readonly createdAt!: string;
+
+    dateValue = day(this.createdAt).format('YYYY-MM-DDTHH:mm');
+
+    @Watch('dateValue')
+    onDateValueChange(newValue: string) {
+      const date = new Date(newValue).toISOString().trim();
+      this.$emit('update:dateValue', date);
+    }
 
     styleInput: StyleInput = {display: 'none'};
+
 
     toNote() {
       this.styleInput = {display: 'block'};
@@ -41,7 +54,7 @@
 
     sureText(note: string) {
       this.styleInput = {display: 'none'};
-      this.$emit('update:value', note);
+      this.$emit('update:noteValue', note);
     }
   }
 

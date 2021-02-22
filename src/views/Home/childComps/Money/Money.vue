@@ -6,7 +6,10 @@
     <section class="main">
       <TagsSection :tags.sync="tags" :tagIds.sync="selected.tagIds" :type.sync="selected.category"/>
     </section>
-    <KeyboardSection :amount.sync="selected.amount" :note.sync="selected.note" @onSubmit="saveRecord"/>
+    <KeyboardSection :amount.sync="selected.amount"
+                     :note.sync="selected.note"
+                     :createdAt.sync="selected.createdAt"
+                     @onSubmit="saveRecord"/>
   </div>
 </template>
 
