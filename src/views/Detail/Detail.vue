@@ -11,10 +11,10 @@
         <div class="record_list" v-for="(item,index) in group" :key="index">
           <div class="record_items">
             <div class="left">
-              <span><Icon :iconName="$store.getters.getItemName(item.tagIds[0])"/></span>
+              <span><Icon :iconName="$store.getters.getItemIcon(item.tagIds[0])"/></span>
             </div>
             <div class="center">
-              <span class="nameSpan">{{$store.getters.getItemIcon(item.tagIds[0])}}</span>
+              <span class="nameSpan">{{$store.getters.getItemName(item.tagIds[0])}}</span>
               <span class="noteSpan">{{item.note || '无备注'}}</span>
             </div>
             <div class="right">

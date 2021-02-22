@@ -16,11 +16,11 @@ const store = new Vuex.Store({
     findTag: (state) => (id: string) => {
       return state.tagList.filter(t => t.id === id)[0];
     },
-    getItemIcon: (state) => (id: string) => {
+    getItemName: (state) => (id: string) => {
       const tag = state.tagList.filter(tag => tag.id === id)[0];
       return tag ? tag.name : '';
     },
-    getItemName: (state) => (id: string) => {
+    getItemIcon: (state) => (id: string) => {
       const tag = state.tagList.filter(tag => tag.id === id)[0];
       return tag ? tag.iconName : '9999';
     },
