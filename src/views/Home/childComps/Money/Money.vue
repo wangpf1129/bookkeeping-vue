@@ -29,7 +29,7 @@
     // 初始值
     selected: RecordItem = {
       tagIds: [], // 标签
-      note: '写点备注...',  // 备注
+      note: '',  // 备注
       createdAt: new Date().toISOString(), //日期
       category: '-', // 收入/支出
       amount: 0  // 总和

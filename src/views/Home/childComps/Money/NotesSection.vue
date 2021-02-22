@@ -2,7 +2,7 @@
   <div class="notes-wrapper">
     <label class="goNote" @click="toNote">
       <Icon iconName="note"/>
-      <span>{{note}}</span>
+      <span>{{note || '写点备注...'}}</span>
     </label>
     <label class="create_date">
       <Icon iconName="date"/>

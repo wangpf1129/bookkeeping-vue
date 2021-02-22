@@ -1,20 +1,20 @@
 <template>
   <Layout name="明细">
     <TypeSection @getCategory="getCategory"/>
-    <section class="icon_div" v-if="array.length === 0">
+    <section class="icon_div" v-if="result.length === 0">
       <Icon iconName="none"/>
       <money-key/>
     </section>
-    <section v-if="array.length !== 0">
-      <div v-for="([date,records],index) in array" :key="index">
+    <section v-if="result.length !== 0">
+      <div v-for="([date,records],index) in result" :key="index">
         <div class="date_div">{{date}}</div>
         <div class="record_list" v-for="(item,index) in records" :key="index">
           <div class="record_items">
             <div class="left">
-              <span><Icon :iconName="getItemIcon(item)"/>{{getItemIcon(item)}}</span>
+              <span><Icon :iconName="$store.getters.getItemName(item.tagIds[0])"/></span>
             </div>
             <div class="center">
-              <span class="nameSpan">{{getItemName(item)}}</span>
+              <span class="nameSpan">{{$store.getters.getItemIcon(item.tagIds[0])}}</span>
               <span class="noteSpan">{{item.note || '无备注'}}</span>
             </div>
             <div class="right">
@@ -25,7 +25,6 @@
         </div>
       </div>
     </section>
-
   </Layout>
 </template>
 
@@ -45,62 +44,53 @@
   export default class Detail extends Vue {
     category = '-';
 
-    get tagList() {
-      return this.$store.state.tagList as Tag[];
-    }
-
     get recordList() {
-      return this.$store.state.recordList as RecordItem[];
+      return (this.$store.state as RootStore).recordList;
     }
 
-    get itemDate() {
-      return (item: RecordItem) => {
-        day(item.createdAt).format('HH:mm');
-      };
+    get tagList() {
+      return (this.$store.state as RootStore).tagList;
     }
 
-    selectedRecords = this.recordList.filter(r => r.category === this.category);
-    hash: { [key: string]: RecordItem[] } = {};
-
-    // 把对象变为数组
-    get array() {
-      return Object.entries(this.hash).sort((a, b) => {
-        if (a[0] === b[0]) return 0;
-        if (a[0] > b[0]) return -1;
-        if (a[0] < b[0]) return 1;
-        return 0;
-      });
-
-    }
 
     getCategory(category: string) {
       this.category = category;
     }
 
-    getItemIcon(item: RecordItem) {
-      console.log(item.tagIds[0]);
-      const tag: any = this.tagList.filter(tag => tag.id === item.tagIds[0]);
-      return tag.length !== 0 ? tag.iconName : '9999';
+
+    get result() {
+      const {recordList} = this;
+      const hash: { [key: string]: RecordItem[] } = {};
+      const selectedRecords = recordList.filter(r => r.category === this.category);
+      selectedRecords.map(r => {
+        const key = day(r.createdAt).format('YYYY-MM-DD');
+        if (!(key in hash)) {
+          hash[key] = [];
+        }
+        hash[key].push(r);
+        return hash;
+      });
+      // 把对象变为数组   已时间排序
+      const array = Object.entries(hash).sort((a, b) => {
+        if (a[0] === b[0]) return 0;
+        if (a[0] > b[0]) return -1;
+        if (a[0] < b[0]) return 1;
+        return 0;
+      });
+      console.log(array);
+      return array;
     }
 
-    getItemName(item: RecordItem) {
-      const tag: any = this.tagList.filter(tag => tag.id === item.tagIds[0]);
-      return tag ? tag.name : '';
+    get itemDate() {
+      return (item: RecordItem) => {
+        return day(item.createdAt).format('HH:mm');
+      };
     }
 
-    created() {
+
+    beforeCreate() {
       this.$store.commit('fetchRecords');
       this.$store.commit('fetchTags');
-
-      this.selectedRecords.map(r => {
-        const key = day(r.createdAt).format('YYYY-MM-DD');
-        // const key = r.createdAt;
-        if (!(key in this.hash)) {
-          this.hash[key] = [];
-        }
-        this.hash[key].push(r);
-        return this.hash;
-      });
     }
   }
 </script>

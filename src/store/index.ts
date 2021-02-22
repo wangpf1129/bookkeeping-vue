@@ -13,11 +13,22 @@ const store = new Vuex.Store({
   getters: {
     findTag: (state) => (id: string) => {
       return state.tagList.filter(t => t.id === id)[0];
+    },
+    getItemIcon: (state) => (id: string) => {
+      const tag = state.tagList.filter(tag => tag.id === id)[0];
+      console.log(tag);
+      return tag ? tag.name : "";
+    },
+    getItemName: (state) => (id: string) => {
+      const tag = state.tagList.filter(tag => tag.id === id)[0];
+      return tag ? tag.iconName : '9999';
     }
   },
   mutations: {
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
+      store.commit('saveRecords');
+
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
@@ -73,6 +84,7 @@ const store = new Vuex.Store({
         ] as Tag[];
       }
       state.tagList = [...localTags];
+      store.commit('saveTags');
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
