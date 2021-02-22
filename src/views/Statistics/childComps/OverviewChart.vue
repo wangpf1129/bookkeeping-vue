@@ -6,7 +6,7 @@
                 支出和收入
               </span>
     </div>
-    <Chart :options="getOption"/>
+    <Chart :options="Option"/>
   </div>
 </template>
 
@@ -48,7 +48,7 @@
       return array;
     }
 
-    get getOption() {
+    get Option() {
       const {dataArray} = this;
       const keys = dataArray.map(item => item.key);
       const valuesIncome = dataArray.map(item => item.valuesIncome);
