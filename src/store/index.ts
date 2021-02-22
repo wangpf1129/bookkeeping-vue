@@ -34,13 +34,6 @@ const store = new Vuex.Store({
               .filter(item => day(item.createdAt).format('MM') === today);
       return todayIncome.map(item => item.amount);
     },
-    // 获取总收入
-    incomeAll: () => {
-      (store.getters.income as RecordItem[])
-              .map(item => item.amount).reduce((preMoney, amount) => {
-        return preMoney += amount;
-      }, 0);
-    },
     // 获取 支出的标签
     expenses: (state) => {
       return state.recordList.filter(item => item.category === '-');
@@ -50,13 +43,6 @@ const store = new Vuex.Store({
       const mouthExpenses = (store.getters.expenses as RecordItem[])
               .filter(item => day(item.createdAt).format('DD') === today);
       return mouthExpenses.map(item => item.amount);
-    },
-    // 获取总支出
-    expensesALL: () => {
-      (store.getters.expenses as RecordItem[])
-              .map(item => item.amount).reduce((preMoney, amount) => {
-        return preMoney += amount;
-      }, 0);
     },
     // 获取当日的总收入或总支出
     dayTotalList: (state) => (type: string) => {

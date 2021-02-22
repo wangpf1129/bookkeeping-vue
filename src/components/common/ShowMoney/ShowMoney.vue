@@ -4,7 +4,7 @@
     <slot name="title_slot"/>
     <slot name="pay_slot"/>
     <slot name="income_slot"/>
-
+    <slot name="count_slot"/>
   </div>
 </template>
 
