@@ -7,6 +7,9 @@ import NoMatch from '@/views/NoMatch/NoMatch.vue';
 import Money from '@/views/Home/childComps/Money/Money.vue';
 import Edit from '@/views/Home/childComps/Edit/Edit.vue';
 import EditTag from '@/views/Home/childComps/Edit/EditTag.vue';
+import OverviewChart from '@/views/Statistics/childComps/OverviewChart.vue';
+import ExpensesChart from '@/views/Statistics/childComps/ExpensesChart.vue';
+import IncomeChart from '@/views/Statistics/childComps/IncomeChart.vue';
 
 Vue.use(VueRouter);
 
@@ -46,7 +49,25 @@ const routes: Array<RouteConfig> = [
   {
     path: '/statistics',
     name: 'Statistics',
-    component: Statistics
+    component: Statistics,
+    children:[
+      {
+        path:'overview',
+        component:OverviewChart
+      },
+      {
+        path:'expenses',
+        component: ExpensesChart
+      },
+      {
+        path:'income',
+        component: IncomeChart
+      },
+      {
+        path: '/statistics',
+        redirect: '/statistics/overview',
+      },
+    ]
   },
   {
     path: '*',
