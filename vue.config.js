@@ -2,6 +2,9 @@ const path = require('path')
 const Plugin = require('svg-sprite-loader/plugin')
 
 module.exports = {
+  publicPath: process.env.NODE_ENV === 'production'
+    ? '/bookkeeping-vue-website/'
+    : '/',
   lintOnSave: false,
   chainWebpack: config => {
     const dir = path.resolve(__dirname, 'src/assets/icons');
